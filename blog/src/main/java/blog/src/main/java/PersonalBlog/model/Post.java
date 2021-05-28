@@ -1,5 +1,6 @@
 package blog.src.main.java.PersonalBlog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -24,6 +25,11 @@ public class Post {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date date = new java.sql.Date(System.currentTimeMillis());
+
+    @ManyToOne
+    @JsonIgnoreProperties("post")
+
+    private Theme theme;
 
     public long getId() {
         return id;
@@ -56,4 +62,13 @@ public class Post {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public Theme getTheme() {
+        return theme;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+    }
+
 }
