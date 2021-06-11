@@ -20,7 +20,9 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
     private UserDetailsService userDetailsService;
 
     @Override
-    protected void configure(@NotNull AuthenticationManagerBuilder auth) throws Exception {
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("root").password(passwordEncoder().encode("gilson123")).authorities("ROLE_ADMIN");
         auth.userDetailsService(userDetailsService);
     }
 
@@ -36,8 +38,7 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/users/sigin").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic()
-                .and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().cors()
                 .and().csrf().disable();
     }

@@ -21,7 +21,8 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserLogin> Authentication(@RequestBody Optional<UserLogin> user){
-        return userService.Login(user).map(resp -> ResponseEntity.ok(resp))
+        return userService.
+                Login(user).map(resp -> ResponseEntity.ok(resp))
                 .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
